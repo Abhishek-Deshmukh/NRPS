@@ -2,7 +2,7 @@
 
 Nginx Reverse Proxy Setter
 
-**This has big gaping security loop holes do not use for anything serious**
+If you wondering if this is secure this uses a 2^7 bit security code to do anything.
 
 It provides with a frontend to set reverse proxy on a nginx server.
 
@@ -30,7 +30,7 @@ Checkout [docs](http://deshmukh-blog.netlify.app/detail/6.html)
 
 #### Frontend
 
-- set up ip address in `./frontend//src/store/index.ts` in the place of `xxx.xxx.xxx.xxx`
+- set up ip address in `./frontend/src/store/index.ts` in the place of `xxx.xxx.xxx.xxx`
 - `cd frontend/`
 - `npm install`
 - `npm run serve`

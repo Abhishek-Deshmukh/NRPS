@@ -43,6 +43,7 @@ export default class Login extends Vue {
     if (response.data) {
       this.error = false;
       this.$store.state.loggedIn = true;
+      this.$store.state.securityKey = response.data;
     } else {
       this.error = true;
     }

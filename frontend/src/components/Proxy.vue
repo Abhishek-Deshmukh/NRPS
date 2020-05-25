@@ -69,7 +69,7 @@ export default class Proxy extends Vue {
   async applyProxies() {
     const response = await axios.post(
       "http://" + this.$store.state.rootIP + ":8081/set_proxies",
-      this.proxies
+      {proxies: this.proxies, securityKey : this.$store.state.securityKey}
     );
     console.log(response);
   }
