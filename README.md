@@ -1,6 +1,4 @@
-# nginx reverse proxy setter
-
-in-development
+# NRPS
 
 It provides with a frontend to set reverse proxy on a nginx server.
 
