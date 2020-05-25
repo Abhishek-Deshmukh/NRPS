@@ -6,7 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     loggedIn: false,
-    rootIP: "51.79.146.245"
+    rootIP: "xxx.xxx.xxx.xxx"
   },
   mutations: {},
   actions: {},
