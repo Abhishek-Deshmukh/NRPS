@@ -46,18 +46,7 @@ import axios from "axios";
 
 @Component
 export default class Proxy extends Vue {
-  proxies: { id: number; nameserver: string; address: string }[] = [
-    {
-      id: 1,
-      nameserver: "www.dunce.com",
-      address: "80",
-    },
-    {
-      id: 2,
-      nameserver: "other.dunce.com",
-      address: "localhost:8005",
-    },
-  ];
+  proxies: { id: number; nameserver: string; address: string }[] = [];
 
   addProxy() {
     this.proxies = this.proxies.concat({
@@ -72,6 +61,8 @@ export default class Proxy extends Vue {
   async fetchProxies() {
     const response = await axios.get("http:\/\/localhost:8081/");
     this.proxies = response.data;
+    console.log({response});
+    console.log( this.proxies );
   }
   async applyProxies() {
     const response = await axios.post(
@@ -79,6 +70,9 @@ export default class Proxy extends Vue {
       this.proxies
     );
     console.log(response);
+  }
+  created(){
+    this.fetchProxies();
   }
 }
 </script>

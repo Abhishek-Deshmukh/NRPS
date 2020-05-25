@@ -9,12 +9,14 @@ def config_writer(proxies):
             + proxy["nameserver"]
             + "; location / { proxy_set_header X-Real-IP $remote_addr; proxy_pass "
             + proxy["address"]
-            + "}}"
+            + ";}}"
         )
     return config
 
 
 def config_parser(config):
+
+    # local variables
     proxies = []
     proxy = {
         "id": 0,
@@ -22,21 +24,29 @@ def config_parser(config):
         "address": "",
     }
     count = 1
+
+    # removing uncecessary seperators
+    config = config.replace("\n", "")
+    config = config.replace("\t", "")
+
+    # separating using `;`
     config_lines = config.split(";")
+
+    # looping through lines
     for config_line in config_lines:
+        config_line = config_line.strip()
 
         # scraping for nameserver
         if config_line.find("server_name") != -1:
-            ## here
-            proxy["nameserver"] = config_line.split(" ",1)[1]
+            proxy["nameserver"] = config_line.split(" ", 1)[1]
 
         # scraping the address
-        if config_line.find("}}") != -1:
-            proxy["address"] = config_line.split("}}")[0].split()[-1]
-            # putting in the address and attaching to proxies
+        if config_line.find("proxy_pass") != -1:
+            proxy["address"] = config_line.split()[-1]
+            # putting in the address and appending to proxies
             proxy["id"] = count
-            proxies.append(proxy.copy())
             count += 1
+            proxies.append(proxy.copy())
     return proxies
 
 

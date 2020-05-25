@@ -1,18 +1,18 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from parser_writer import *
 
 
 APP = Flask(__name__)
 CORS(APP)
-DATA = [
-    {"id": 1, "nameserver": "www.dunce.com", "address": "http://localhost:80/",},
-    {"id": 2, "nameserver": "other.dunce.com", "address": "http://localhost:8005/",},
-]
+PATH_TO_CONF = "./main.config"
 
 
 @APP.route("/", methods=["GET"])
 def current_proxies():
-    return jsonify(DATA)
+    with open(PATH_TO_CONF, "r") as config_file:
+        data = config_parser(config_file.read())
+    return jsonify(data)
 
 
 @APP.route("/login", methods=["POST"])
@@ -27,8 +27,9 @@ def login():
 @APP.route("/set_proxies", methods=["POST"])
 def set_proxies():
     try:
-        global DATA
-        DATA = request.json
+        config = config_writer(request.json)
+        with open(PATH_TO_CONF, "w") as config_file:
+            config_file.write(config)
         return jsonify(True)
     except:
         return jsonify(False)
