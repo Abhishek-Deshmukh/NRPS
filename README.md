@@ -16,9 +16,9 @@ Login authentication is done by flask
 
 ## Requirements
 
-- nodejs
 - python3
 - flask
+- flask_Cors
 
 ## to run
 
@@ -31,5 +31,5 @@ Login authentication is done by flask
 #### Backend/API
 
 - `cd backend`
-- `pip install requirements`
+- `pip install -r requirements.txt`
 - `python api.py`
