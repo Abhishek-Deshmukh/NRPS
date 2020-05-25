@@ -5,10 +5,9 @@ from flask_cors import CORS
 APP = Flask(__name__)
 CORS(APP)
 DATA = [
-    {"id": 1, "nameserver": "www.dunce.com", "address": "80",},
-    {"id": 2, "nameserver": "other.dunce.com", "address": "localhost:8005",},
+    {"id": 1, "nameserver": "www.dunce.com", "address": "http://localhost:80/",},
+    {"id": 2, "nameserver": "other.dunce.com", "address": "http://localhost:8005/",},
 ]
-
 
 
 @APP.route("/", methods=["GET"])
@@ -33,7 +32,6 @@ def set_proxies():
         return jsonify(True)
     except:
         return jsonify(False)
-
 
 
 if __name__ == "__main__":
