@@ -2,6 +2,8 @@
 
 Nginx Reverse Proxy Setter
 
+This has big gaping security loop holes do not use for anything serious
+
 It provides with a frontend to set reverse proxy on a nginx server.
 
 Because the nginx confs are ugly🤢
