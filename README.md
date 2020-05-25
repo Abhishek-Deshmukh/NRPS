@@ -30,12 +30,14 @@ Checkout [docs](http://deshmukh-blog.netlify.app/detail/6.html)
 
 #### Frontend
 
-- `cd frontend`
+- set up ip address in `./frontend/nginx_proxy_setter/src/store/index.ts` in the place of `xxx.xxx.xxx.xxx`
+- `cd frontend/nginx_revers_proxy_setter`
 - `npm install`
 - `npm run serve`
 
 #### Backend/API
 
+- set up ip address in `./backend/api.py` in the place of `xxx.xxx.xxx.xxx`
 - `cd backend`
 - `pip install -r requirements.txt`
 - `python api.py`
