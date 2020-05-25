@@ -1,5 +1,7 @@
 # NRPS
 
+Nginx Reverse Proxy Setter
+
 It provides with a frontend to set reverse proxy on a nginx server.
 
 Because the nginx confs are ugly🤢
@@ -16,9 +18,13 @@ Login authentication is done by flask
 
 - python3
 - flask
-- flask_Cors
+- flask_cors
 
-## to run
+## How to setup
+
+Checkout [docs](http://deshmukh-blog.netlify.app/detail/6.html)
+
+## How to run (development)
 
 #### Frontend
 
