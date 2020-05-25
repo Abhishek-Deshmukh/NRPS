@@ -27,7 +27,8 @@ def config_parser(config):
 
         # scraping for nameserver
         if config_line.find("server_name") != -1:
-            proxy["nameserver"] = config_line.split(" ")[1]
+            ## here
+            proxy["nameserver"] = config_line.split(" ",1)[1]
 
         # scraping the address
         if config_line.find("}}") != -1:
