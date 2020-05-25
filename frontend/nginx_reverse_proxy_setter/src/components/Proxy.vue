@@ -59,19 +59,21 @@ export default class Proxy extends Vue {
     this.proxies = this.proxies.filter((prox) => prox.id != proxy.id);
   }
   async fetchProxies() {
-    const response = await axios.get("http:\/\/localhost:8081/");
+    const response = await axios.get(
+      "http://" + this.$store.state.rootIP + ":8081/"
+    );
     this.proxies = response.data;
-    console.log({response});
-    console.log( this.proxies );
+    console.log({ response });
+    console.log(this.proxies);
   }
   async applyProxies() {
     const response = await axios.post(
-      "http:\/\/localhost:8081/set_proxies",
+      "http://" + this.$store.state.rootIP + ":8081/set_proxies",
       this.proxies
     );
     console.log(response);
   }
-  created(){
+  created() {
     this.fetchProxies();
   }
 }

@@ -38,7 +38,7 @@ export default class Login extends Vue {
   };
   async onSubmit(event: any) {
     event.preventDefault();
-    const response = await axios.post("http://localhost:8081/login", this.form)
+    const response = await axios.post("http://" + this.$store.state.rootIP + ":8081/login", this.form)
     console.log(response);
     if (response.data) {
       this.error = false;

@@ -5,7 +5,7 @@ from parser_writer import *
 
 APP = Flask(__name__)
 CORS(APP)
-PATH_TO_CONF = "./main.config"
+PATH_TO_CONF = "./main.conf"
 
 
 @APP.route("/", methods=["GET"])
@@ -36,4 +36,4 @@ def set_proxies():
 
 
 if __name__ == "__main__":
-    APP.run(debug=True, port="8081")
+    APP.run(debug=True, host="51.79.146.245", port="8081")
