@@ -30,8 +30,8 @@ Checkout [docs](http://deshmukh-blog.netlify.app/detail/6.html)
 
 #### Frontend
 
-- set up ip address in `./frontend/nginx_proxy_setter/src/store/index.ts` in the place of `xxx.xxx.xxx.xxx`
-- `cd frontend/nginx_revers_proxy_setter`
+- set up ip address in `./frontend//src/store/index.ts` in the place of `xxx.xxx.xxx.xxx`
+- `cd frontend/`
 - `npm install`
 - `npm run serve`
 
