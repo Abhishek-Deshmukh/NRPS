@@ -37,7 +37,8 @@ Checkout [docs](http://deshmukh-blog.netlify.app/detail/6.html)
 
 #### Backend/API
 
-- set up ip address in `./backend/api.py` in the place of `xxx.xxx.xxx.xxx`
+- Set up IP address in `./backend/api.py` in the place of `xxx.xxx.xxx.xxx`
+- Put in the `USERNAME` and `PASSWORD` in `./backend/api.py`
 - `cd backend`
 - `pip install -r requirements.txt`
 - `python api.py`

@@ -9,6 +9,8 @@ from flask_cors import CORS
 
 APP = Flask(__name__)
 CORS(APP)
+USERNAME = ""
+PASSWORD = ""
 PATH_TO_CONF = "./main.conf"
 SECRET_FILE = "./secrets.txt"
 
@@ -74,7 +76,7 @@ def login():
     """
     username = request.json["username"]
     password = request.json["password"]
-    if username == "d" and password == "1":
+    if username == USERNAME and password == PASSWORD:
         secret_key = "".join(token_hex(16) for i in range(8))
         save(secret_key)
         return jsonify(secret_key)
