@@ -2,10 +2,13 @@
   <div class="container">
     <div class="row heading">
       <div class="col-1 number">#</div>
-      <div class="col-5">
+      <div class="col-2">
+        Type
+      </div>
+      <div class="col-4">
         Nameserver
       </div>
-      <div class="col-5">
+      <div class="col-4">
         Address
       </div>
     </div>
@@ -14,11 +17,26 @@
       <div class="col-1 number">
         {{ proxy.id }}
       </div>
-      <div class="col-5">
-        <b-form-input required v-model="proxy.nameserver" />
+      <div class="col-2">
+        <b-form-select required v-model="proxy.type">
+          <b-form-select-option value="">--select--</b-form-select-option>
+          <b-form-select-option value="static">Static</b-form-select-option>
+          <b-form-select-option value="proxy">Proxy</b-form-select-option>
+        </b-form-select>
       </div>
-      <div class="col-5">
-        <b-form-input required v-model="proxy.address" />
+      <div class="col-4">
+        <b-form-input
+          required
+          v-model="proxy.nameserver"
+          placeholder="example.com www.example.com"
+        />
+      </div>
+      <div class="col-4">
+        <b-form-input
+          required
+          v-model="proxy.address"
+          placeholder="localhost:8000"
+        />
       </div>
       <div class="col-1">
         <b-button variant="outline-danger" @click="removeProxy(proxy)"
@@ -46,13 +64,19 @@ import axios from "axios";
 
 @Component
 export default class Proxy extends Vue {
-  proxies: { id: number; nameserver: string; address: string }[] = [];
+  proxies: {
+    id: number;
+    nameserver: string;
+    address: string;
+    type: string;
+  }[] = [];
 
   addProxy() {
     this.proxies = this.proxies.concat({
       id: this.proxies.length + 1,
       nameserver: "",
       address: "",
+      type: "",
     });
   }
   removeProxy(proxy: { id: number; nameserver: string; address: string }) {
@@ -69,7 +93,7 @@ export default class Proxy extends Vue {
   async applyProxies() {
     const response = await axios.post(
       "http://" + this.$store.state.rootIP + ":8081/set_proxies",
-      {proxies: this.proxies, securityKey : this.$store.state.securityKey}
+      { proxies: this.proxies, securityKey: this.$store.state.securityKey }
     );
     console.log(response);
   }

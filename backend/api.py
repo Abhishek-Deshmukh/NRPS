@@ -48,6 +48,15 @@ def config_parser(config):
 
         # scraping the address
         if config_line.find("proxy_pass") != -1:
+            proxy["type"] = "proxy"
+            proxy["address"] = config_line.split()[-1]
+            # putting in the address and appending to proxies
+            proxy["id"] = count
+            count += 1
+            proxies.append(proxy.copy())
+
+        if config_line.find("root") != -1:
+            proxy["type"] = "static"
             proxy["address"] = config_line.split()[-1]
             # putting in the address and appending to proxies
             proxy["id"] = count
@@ -94,13 +103,24 @@ def config_writer(proxies):
         config += "server{listen 80"
         if proxy["id"] == 1:
             config += " default_server"
-        config += (
-            ";server_name "
-            + proxy["nameserver"]
-            + "; location / { proxy_set_header X-Real-IP $remote_addr; proxy_pass "
-            + proxy["address"]
-            + ";}}"
-        )
+        if proxy["type"] == "proxy":
+            config += (
+                ";server_name "
+                + proxy["nameserver"]
+                + "; location / { proxy_set_header X-Real-IP $remote_addr; proxy_pass "
+                + proxy["address"]
+                + ";}}"
+            )
+        elif proxy["type"] == "static":
+            config += (
+                ";server_name "
+                + proxy["nameserver"]
+                + "; location / { root "
+                + proxy["address"]
+                + ";}}"
+            )
+        else:
+            pass
     return config
 
 
