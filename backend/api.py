@@ -2,6 +2,7 @@
 Author: Abhishek Anil Deshmukh <deshmukhabhishek369@gmail.com>
 The backend api
 """
+from os import system, path
 from secrets import token_hex
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -14,7 +15,7 @@ PASSWORD = ""
 
 APP = Flask(__name__)
 CORS(APP)
-PATH_TO_CONF = "./main.conf"
+PATH_TO_CONF = "../sites-enabled/main.conf"
 SECRET_FILE = "./secrets.txt"
 
 
@@ -32,8 +33,7 @@ def config_parser(config):
     count = 1
 
     # removing uncecessary seperators
-    config = config.replace("\n", "")
-    config = config.replace("\t", "")
+    config = config.replace("\n", "").replace("\t", "")
 
     # separating using `;`
     config_lines = config.split(";")
@@ -77,7 +77,9 @@ def current_proxies():
 def save(secret_key):
     """saving the security key in a file to read later
     """
-    with open(SECRET_FILE, "a+") as secrets_file:
+    with open(SECRET_FILE, "a+") if path.isfile(SECRET_FILE) else open(
+        SECRET_FILE, "w+"
+    ) as secrets_file:
         inside = secrets_file.read()
         secrets_file.write(inside + "\n" + secret_key)
 
@@ -88,7 +90,7 @@ def login():
     """
     username = request.json["username"]
     password = request.json["password"]
-    if username == USERNAME and password == PASSWORD:
+    if (username, password) == (USERNAME, PASSWORD):
         secret_key = "".join(token_hex(16) for i in range(8))
         save(secret_key)
         return jsonify(secret_key)
@@ -119,8 +121,6 @@ def config_writer(proxies):
                 + proxy["address"]
                 + ";}}"
             )
-        else:
-            pass
     return config
 
 
@@ -132,7 +132,7 @@ def check_key(secret_key):
         all_keys = all_keys.split("\n")
         if secret_key in all_keys:
             return True
-        return False
+    return False
 
 
 @APP.route("/set_proxies", methods=["POST"])
@@ -143,7 +143,34 @@ def set_proxies():
     if check_key(request.json["securityKey"]):
         with open(PATH_TO_CONF, "w") as config_file:
             config_file.write(config)
+        restart_nginx()
         return jsonify(True)
+    return jsonify(False)
+
+
+@APP.route("/restart_server", methods=["POST"])
+def restart_nginx():
+    """Route for restarting nginx
+    """
+    if check_key(request.json["securityKey"]):
+        try:
+            system("systemctl restart nginx")
+            return jsonify(True)
+        except:
+            pass
+    return jsonify(False)
+
+
+@APP.route("/clean_secrets", methods=["POST"])
+def clean_secrets():
+    """cleaning all the secrets, i.e. deleting the SECRETS_FILE
+    """
+    if check_key(request.json["securityKey"]):
+        try:
+            system("rm -rf " + SECRET_FILE)
+            return jsonify(True)
+        except:
+            pass
     return jsonify(False)
 
 

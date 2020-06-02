@@ -2,9 +2,11 @@
 
 Nginx Reverse Proxy Setter
 
+It started just for reverse proxy but now you can do all static file handling as well
+
 If you wondering if this is secure this uses a 2^7 bit security code to do anything.
 
-It provides with a frontend to set reverse proxy on a nginx server.
+It provides with a frontend to setup Nginx server.
 
 Because the nginx confs are ugly🤢
 
@@ -18,13 +20,23 @@ Login authentication is done by flask
 
 ## Requirements
 
+#### Build machine
+Usually your laptop or desktop but can be the remote server itself
+
+- NodeJS
+
+#### Deployment machine
+The remote server
+
 - python3
-- flask
-- flask_cors
+- python3-pip
+- virtualenv
+- nginx
+- supervisor
 
-## How to setup
+## How to Install and run
 
-Checkout [docs](http://deshmukh-blog.netlify.app/detail/6.html)
+Follow [docs](http://deshmukh-blog.netlify.app/detail/6.html)
 
 ## How to run (development)
 

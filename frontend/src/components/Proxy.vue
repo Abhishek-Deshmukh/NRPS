@@ -55,6 +55,15 @@
     <b-button variant="outline-info" class="mt-2 ml-2" @click="fetchProxies()"
       >Reset</b-button
     >
+    <b-button
+      variant="outline-warning"
+      class="mt-2 ml-2"
+      @click="restartServer()"
+      >Restart server</b-button
+    >
+    <b-button variant="outline-danger" class="mt-2 ml-2" @click="clearSecrets()"
+      >Clear secrets</b-button
+    >
   </div>
 </template>
 
@@ -87,18 +96,32 @@ export default class Proxy extends Vue {
       "http://" + this.$store.state.rootIP + ":8081/"
     );
     this.proxies = response.data;
-    console.log({ response });
-    console.log(this.proxies);
+    console.log(response.data);
   }
   async applyProxies() {
     const response = await axios.post(
       "http://" + this.$store.state.rootIP + ":8081/set_proxies",
       { proxies: this.proxies, securityKey: this.$store.state.securityKey }
     );
-    console.log(response);
+    console.log(response.data);
   }
   created() {
     this.fetchProxies();
+  }
+  async restartServer() {
+    const response = await axios.post(
+      "http://" + this.$store.state.rootIP + ":8081/restart_server",
+      { securityKey: this.$store.state.securityKey }
+    );
+    console.log(response.data);
+  }
+  async clearSecrets() {
+    this.$store.state.loggedIn = false;
+    const response = await axios.post(
+      "http://" + this.$store.state.rootIP + ":8081/clean_secrets",
+      { securityKey: this.$store.state.securityKey }
+    );
+    console.log(response.data)
   }
 }
 </script>

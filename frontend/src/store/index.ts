@@ -5,9 +5,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    loggedIn: false,
-    rootIP: "xxx.xxx.xxx.xxx",
+
+    // enter here
+    rootIP: "",
+    userName: "",
+    // enter here
+
     securityKey: "",
+    loggedIn: false,
   },
   mutations: {},
   actions: {},
