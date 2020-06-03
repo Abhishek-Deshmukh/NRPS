@@ -8,7 +8,7 @@ export default new Vuex.Store({
 
     // enter here
     rootIP: "",
-    userName: "",
+    serverName: "",
     // enter here
 
     securityKey: "",

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="center">
-      <h1>Welcome to {{ $store.state.userName }}'s nginx reverse proxy setter</h1>
+      <h1>Welcome to {{ $store.state.serverName }}'s nginx reverse proxy setter</h1>
       <br />
         <Login v-if="!$store.state.loggedIn" />
         <Proxy v-else />
