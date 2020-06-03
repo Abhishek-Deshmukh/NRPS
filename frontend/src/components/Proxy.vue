@@ -62,7 +62,7 @@
       >Restart server</b-button
     >
     <b-button variant="outline-danger" class="mt-2 ml-2" @click="clearSecrets()"
-      >Clear secrets</b-button
+      >Logout and Clear secrets</b-button
     >
   </div>
 </template>
