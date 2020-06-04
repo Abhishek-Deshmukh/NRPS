@@ -19,8 +19,9 @@ cd ..
 mkdir ./build/frontend
 cp -r frontend/dist/* build/frontend
 
-# install and readme
-cp static/* build/
+# install.sh and readme
+cp static/install.sh build/
+cp static/README.md build/
 
 # greeintgs
 echo "build complete with installation instruction in the build directory"

@@ -18,6 +18,8 @@ The fronend is a vue app, requests are send using axios.
 
 Login authentication is done by flask
 
+<img src="./static/flow-chart.png" width="100%">
+
 ## Requirements
 
 #### Build machine
