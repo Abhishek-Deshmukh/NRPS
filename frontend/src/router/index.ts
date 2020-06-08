@@ -9,9 +9,6 @@ const routes: Array<RouteConfig> = [
     path: "/",
     name: "Home",
     component: Home,
-    meta: {
-      title: "NRPS: Nginx Reverse Proxy Setter",
-    },
   },
   {
     path: "/about",

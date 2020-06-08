@@ -1,5 +1,5 @@
 {
-  "name": "nginx_reverse_proxy_setter",
+  "name": "NRPS: Nginx Reverse Proxy Setter",
   "version": "0.1.0",
   "private": true,
   "scripts": {
