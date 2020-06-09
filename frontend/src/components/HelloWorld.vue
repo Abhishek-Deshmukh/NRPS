@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <div class="center">
+      <img src="../assets/logo.png">
       <h1>Welcome to {{ $store.state.serverName }}'s nginx reverse proxy setter</h1>
       <br />
         <Login v-if="!$store.state.loggedIn" />
@@ -30,10 +31,9 @@ export default class HelloWorld extends Vue {
   text-align: center;
 }
 h1 {
-  font-size: 2rem;
-  line-height: 0.9;
-  letter-spacing: 0.064em;
-  font-weight: 500;
-  font-style: normal;
+font-size: 2.1rem;
+line-height: 1.1;
+letter-spacing: 0.068em;
+font-weight: 400;
 }
 </style>

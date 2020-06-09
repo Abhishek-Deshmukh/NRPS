@@ -102,24 +102,24 @@ def config_writer(proxies):
     """
     config = ""
     for proxy in proxies:
-        config += "server{listen 80"
+        config += "server{\n\tlisten 80"
         if proxy["id"] == 1:
             config += " default_server"
         if proxy["type"] == "proxy":
             config += (
-                ";server_name "
+                ";\n\tserver_name "
                 + proxy["nameserver"]
-                + "; location / { proxy_set_header X-Real-IP $remote_addr; proxy_pass "
+                + ";\n\tlocation / {\n\t\t proxy_set_header X-Real-IP $remote_addr; \n\t\t proxy_pass "
                 + proxy["address"]
-                + ";}}"
+                + ";\n}}\n"
             )
         elif proxy["type"] == "static":
             config += (
                 ";server_name "
                 + proxy["nameserver"]
-                + "; location / { root "
+                + "; \n\tlocation / {\n\t\t root "
                 + proxy["address"]
-                + ";}}"
+                + ";\n}}\n"
             )
     return config
 

@@ -1,27 +1,23 @@
 <template>
-  <div class="container-fluid">
+  <div>
     <p v-if="error" class="error">Authentication Error</p>
-    <b-form @submit="onSubmit" @reset="onReset">
-      <b-form-group label="Your Username:" label-for="input-1">
-        <b-form-input
-          id="input-1"
-          v-model="form.username"
-          required
-          placeholder="Enter user-name"
-        ></b-form-input>
-      </b-form-group>
-      <b-form-group label="Password:" label-for="input-2">
-        <b-form-input
-          id="input-2"
-          type="password"
-          v-model="form.password"
-          required
-          placeholder="Enter password"
-        ></b-form-input>
-      </b-form-group>
-      <b-button type="submit" variant="primary">Submit</b-button>
-      <b-button type="reset" variant="danger" class="ml-3">Reset</b-button>
-    </b-form>
+    <form>
+      <span label="Your Username:" for="input-1">Your Username:</span>
+      <br />
+      <input v-model="form.username" required placeholder="Enter user-name" />
+      <br />
+      <span for="input-2">Password:</span>
+      <br />
+      <input
+        type="password"
+        v-model="form.password"
+        required
+        placeholder="Enter password"
+      />
+      <br />
+      <button type="submit" @click="onSubmit()">Submit</button>
+      <button type="reset" @click="onReset()">Reset</button>
+    </form>
   </div>
 </template>
 
@@ -34,11 +30,13 @@ export default class Login extends Vue {
   error: boolean = false;
   form = {
     username: "",
-    password: "",
+    password: ""
   };
   async onSubmit(event: any) {
-    event.preventDefault();
-    const response = await axios.post("http://" + this.$store.state.rootIP + ":8081/login", this.form)
+    const response = await axios.post(
+      "http://" + this.$store.state.rootIP + ":8081/login",
+      this.form
+    );
     console.log(response);
     if (response.data) {
       this.error = false;
@@ -51,7 +49,7 @@ export default class Login extends Vue {
   onReset() {
     this.form = {
       username: "",
-      password: "",
+      password: ""
     };
   }
 }
@@ -64,5 +62,13 @@ export default class Login extends Vue {
   letter-spacing: 0.064em;
   font-weight: 900;
   font-style: italic;
+}
+input {
+  margin-bottom: 30px;
+  margin-top: 5px;
+}
+button {
+  margin: 10px;
+  border: 1px solid brown;
 }
 </style>
