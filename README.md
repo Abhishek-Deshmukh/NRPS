@@ -1,5 +1,7 @@
 # NRPS
 
+<p align="center"><img src="static/logo_big.png" width="200px"></p>
+
 Nginx Reverse Proxy Setter
 
 It started just for reverse proxy but now you can do all static file handling as well
@@ -10,15 +12,9 @@ It provides with a frontend to setup Nginx server.
 
 Because the nginx confs are ugly🤢
 
-## Architecture
+## Screenshot
 
-A flask api(backend) run as a root user, can read and write the nginx conf file, it gets requests form front end.
-
-The fronend is a vue app, requests are send using axios.
-
-Login authentication is done by flask
-
-<img src="./static/flow-chart.png" width="100%">
+<img src="static/screenshot.png" style="border:1px solid lightgrey;border-radius:5px; padding: 10px;">
 
 ## Requirements
 
@@ -39,6 +35,17 @@ The remote server
 ## How to Install and run
 
 Follow [docs](http://deshmukh-blog.netlify.app/detail/6.html)
+
+## Architecture
+
+A flask api(backend) run as a root user, can read and write the nginx conf file, it gets requests form front end.
+
+The fronend is a vue app, requests are send using axios.
+
+Login authentication is done by flask
+
+<img src="./static/flow-chart.png" width="100%">
+
 
 ## How to run (development)
 

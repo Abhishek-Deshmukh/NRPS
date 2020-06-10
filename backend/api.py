@@ -102,24 +102,24 @@ def config_writer(proxies):
     """
     config = ""
     for proxy in proxies:
-        config += "server{\n\tlisten 80"
+        config += "server {\n\tlisten 80"
         if proxy["id"] == 1:
             config += " default_server"
         if proxy["type"] == "proxy":
             config += (
                 ";\n\tserver_name "
                 + proxy["nameserver"]
-                + ";\n\tlocation / {\n\t\t proxy_set_header X-Real-IP $remote_addr; \n\t\t proxy_pass "
+                + ";\n\tlocation / {\n\t\tproxy_set_header X-Real-IP $remote_addr;\n\t\tproxy_pass "
                 + proxy["address"]
-                + ";\n}}\n"
+                + ";\n\t}\n}\n"
             )
         elif proxy["type"] == "static":
             config += (
-                ";server_name "
+                ";\n\tserver_name "
                 + proxy["nameserver"]
-                + "; \n\tlocation / {\n\t\t root "
+                + ";\n\tlocation / {\n\t\troot "
                 + proxy["address"]
-                + ";\n}}\n"
+                + ";\n\t}\n}\n"
             )
     return config
 
@@ -141,6 +141,8 @@ def set_proxies():
     """
     config = config_writer(request.json["proxies"])
     if check_key(request.json["securityKey"]):
+        with open(PATH_TO_CONF, "r") as config_file:
+            config = config_file.readline() + "\n" + config
         with open(PATH_TO_CONF, "w") as config_file:
             config_file.write(config)
         restart_nginx()
