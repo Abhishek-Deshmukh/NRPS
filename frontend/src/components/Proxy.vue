@@ -71,60 +71,60 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from "vue-property-decorator";
-import axios from "axios";
+  import {Component, Prop, Vue} from 'vue-property-decorator';
+  import axios from 'axios';
 
-@Component
-export default class Proxy extends Vue {
-  proxies: {
-    id: number;
-    nameserver: string;
-    address: string;
-    type: string;
-  }[] = [];
+  @Component
+  export default class Proxy extends Vue {
+    proxies: {
+      id: number;
+      nameserver: string;
+      address: string;
+      type: string;
+    }[] = [];
 
-  addProxy() {
-    this.proxies = this.proxies.concat({
-      id: this.proxies.length + 1,
-      nameserver: "",
-      address: "",
-      type: ""
-    });
+    addProxy() {
+      this.proxies = this.proxies.concat({
+        id: this.proxies.length + 1,
+        nameserver: '',
+        address: '',
+        type: '',
+      });
+    }
+    removeProxy(proxy: {id: number; nameserver: string; address: string}) {
+      this.proxies = this.proxies.filter(prox => prox.id != proxy.id);
+    }
+    async fetchProxies() {
+      const response = await axios.get(
+        'http://' + this.$store.state.rootIP + ':8081/',
+      );
+      this.proxies = response.data;
+      console.log(response.data);
+    }
+    async applyProxies() {
+      const response = await axios.post(
+        'http://' + this.$store.state.rootIP + ':8081/set_proxies',
+        {proxies: this.proxies, securityKey: this.$store.state.securityKey},
+      );
+      console.log(response.data);
+    }
+    created() {
+      this.fetchProxies();
+    }
+    async restartServer() {
+      const response = await axios.post(
+        'http://' + this.$store.state.rootIP + ':8081/restart_server',
+        {securityKey: this.$store.state.securityKey},
+      );
+      console.log(response.data);
+    }
+    async clearSecrets() {
+      this.$store.state.loggedIn = false;
+      const response = await axios.post(
+        'http://' + this.$store.state.rootIP + ':8081/clean_secrets',
+        {securityKey: this.$store.state.securityKey},
+      );
+      console.log(response.data);
+    }
   }
-  removeProxy(proxy: { id: number; nameserver: string; address: string }) {
-    this.proxies = this.proxies.filter(prox => prox.id != proxy.id);
-  }
-  async fetchProxies() {
-    const response = await axios.get(
-      "http://" + this.$store.state.rootIP + ":8081/"
-    );
-    this.proxies = response.data;
-    console.log(response.data);
-  }
-  async applyProxies() {
-    const response = await axios.post(
-      "http://" + this.$store.state.rootIP + ":8081/set_proxies",
-      { proxies: this.proxies, securityKey: this.$store.state.securityKey }
-    );
-    console.log(response.data);
-  }
-  created() {
-    this.fetchProxies();
-  }
-  async restartServer() {
-    const response = await axios.post(
-      "http://" + this.$store.state.rootIP + ":8081/restart_server",
-      { securityKey: this.$store.state.securityKey }
-    );
-    console.log(response.data);
-  }
-  async clearSecrets() {
-    this.$store.state.loggedIn = false;
-    const response = await axios.post(
-      "http://" + this.$store.state.rootIP + ":8081/clean_secrets",
-      { securityKey: this.$store.state.securityKey }
-    );
-    console.log(response.data);
-  }
-}
 </script>
