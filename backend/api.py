@@ -124,7 +124,9 @@ def config_writer(proxies):
     last_proxy = ""
     for proxy in proxies:
         if last_proxy != proxy["nameserver"]:
-            config += "\n}\nserver {\n\tlisten 80"
+            if proxy["id"] != 1:
+                config += "\n}"
+            config += "\nserver {\n\tlisten 80"
             if proxy["id"] == 1:
                 config += " default_server"
             config += ";\n\tserver_name " + proxy["nameserver"] + ";"
