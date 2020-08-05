@@ -161,7 +161,7 @@ def set_proxies():
         with open(PATH_TO_CONF, "w") as config_file:
             config_file.write(config)
         restart_nginx()
-        renew_certificates()
+        renew_certificates(request.json["proxies"])
         return jsonify(True)
     return jsonify(False)
 
@@ -179,13 +179,15 @@ def restart_nginx():
     return jsonify(False)
 
 
-@APP.route("/api/renew_certificate", methods=["POST"])
-def renew_certificates():
+def renew_certificates(proxies):
     """Renewing certificates
     """
     if check_key(request.json["securityKey"]):
+        command = "certbot --nginx -n -d"
+        for proxy in proxies:
+            command += " " + proxy["namespace"]
         try:
-            system("certbot --nginx -n -d ")
+            system(command)
             return jsonify(True)
         except Exception:
             pass
