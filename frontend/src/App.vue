@@ -8,8 +8,8 @@
 @import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css);
 @import './assets/bootstrap-grid.min.css';
   * {
-  -webkit-box-sizing: content-box;
-  box-sizing: content-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   }
 body {
   padding-top: 40px;

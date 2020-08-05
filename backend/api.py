@@ -48,11 +48,11 @@ def config_parser(config):
             proxy["nameserver"] = config_line.split("server_name ", 1)[1]
 
         # scraping for location
-        elif config_line.find("location") != -1:
+        if config_line.find("location") != -1:
             proxy["location"] = config_line.split(" ")[1].split("{")[0]
 
         # scraping the address
-        elif config_line.find("proxy_pass") != -1:
+        if config_line.find("proxy_pass") != -1:
             proxy["type"] = "proxy"
             proxy["address"] = config_line.split()[-1]
             # putting in the address and appending to proxies
@@ -60,7 +60,7 @@ def config_parser(config):
             count += 1
             proxies.append(proxy.copy())
 
-        elif config_line.find("root") != -1:
+        if config_line.find("root") != -1:
             proxy["type"] = "static"
             proxy["address"] = config_line.split()[-1]
             # putting in the address and appending to proxies
