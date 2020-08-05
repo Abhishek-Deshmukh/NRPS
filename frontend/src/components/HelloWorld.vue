@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
-    <div class="center">
-      <img src="../assets/logo.png">
-      <h1>Welcome to {{ $store.state.serverName }}'s nginx reverse proxy setter</h1>
-      <br />
-        <Login v-if="!$store.state.loggedIn" />
-        <Proxy v-else />
-    </div>
+  <div class="center">
+    <img src="../assets/logo.png" class="hover-scale" />
+    <h1>
+      Welcome to {{ $store.state.serverName }}'s nginx reverse proxy setter
+    </h1>
+    <br />
+    <Login v-if="!$store.state.loggedIn" />
+    <Proxy v-else />
   </div>
 </template>
 
@@ -27,13 +27,19 @@ export default class HelloWorld extends Vue {
 </script>
 
 <style scoped lang="scss">
+.hover-scale {
+  transition: 0.2s;
+  &:hover {
+    transform: scale(1.1);
+  }
+}
 .center {
   text-align: center;
 }
 h1 {
-font-size: 2.1rem;
-line-height: 1.1;
-letter-spacing: 0.068em;
-font-weight: 400;
+  font-size: 2.1rem;
+  line-height: 1.1;
+  letter-spacing: 0.068em;
+  font-weight: 400;
 }
 </style>

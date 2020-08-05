@@ -1,61 +1,56 @@
 <template>
   <div>
-    <div class="container">
-      <div class="row heading">
-        <div class="col-1">#</div>
-        <div class="col-2">
-          Type
-        </div>
-        <div class="col-3">
-          Nameserver
-        </div>
-        <div class="col-1">
-          path
-        </div>
-        <div class="col-4">
-          Address
-        </div>
+    <div class="row heading">
+      <div class="col-2">
+        Type
       </div>
+      <div class="col-4">
+        Nameserver
+      </div>
+      <div class="col-2">
+        path
+      </div>
+      <div class="col-3">
+        Address
+      </div>
+    </div>
 
-      <div class="row" v-for="proxy in proxies" :key="proxy.id">
-        <div class="col-1">
-          {{ proxy.id }}
-        </div>
-        <div class="col-2">
-          <span class="dropdown">
-            <select required v-model="proxy.type">
-              <option value="">--select--</option>
-              <option value="static">Static</option>
-              <option value="proxy">Proxy</option>
-            </select>
-          </span>
-        </div>
-        <div class="col-3">
-          <input
-            required
-            v-model="proxy.nameserver"
-            placeholder="example.com www.example.com"
-          />
-        </div>
-        <div class="col-1">
-          <input
-            required
-            v-model="proxy.location"
-            placeholder="/"
-          />
-        </div>
-        <div class="col-4">
-          <input
-            required
-            v-model="proxy.address"
-            placeholder="http://localhost:8000"
-          />
-        </div>
-        <div class="col-1">
-          <button class="remove" @click="removeProxy(proxy)">
-            -
-          </button>
-        </div>
+    <div class="row" v-for="proxy in proxies" :key="proxy.id">
+      <div class="col-2">
+        <span class="dropdown">
+          <select required v-model="proxy.type">
+            <option value="">--select--</option>
+            <option value="static">Static</option>
+            <option value="proxy">Proxy</option>
+          </select>
+        </span>
+      </div>
+      <div class="col-4">
+        <input
+          required
+          v-model="proxy.nameserver"
+          placeholder="example.com www.example.com"
+          style="max-width: 500px;"
+        />
+      </div>
+      <div class="col-2">
+        <input
+          required
+          v-model="proxy.location"
+          placeholder="/"
+        />
+      </div>
+      <div class="col-3">
+        <input
+          required
+          v-model="proxy.address"
+          placeholder="http://localhost:8000"
+        />
+      </div>
+      <div class="col-1">
+        <button class="remove hover-red" @click="removeProxy(proxy)">
+          -
+        </button>
       </div>
     </div>
     <br />
@@ -140,3 +135,53 @@
     }
   }
 </script>
+<style scope lang="scss">
+.remove {
+  color: #8a4f3e;
+  border: 1px solid #8a4f3e;
+}
+.add {
+  color: #e98215;
+  border: 1px solid #e98215;
+  margin-bottom: 5px;
+  transition: 0.2s;
+  &:hover {
+    background: #e98215;
+    color: white;
+  }
+}
+.apply {
+  color: green;
+  border: 1px solid green;
+  &:hover {
+    background: green;
+    color: white;
+  }
+}
+.reset {
+  color: red;
+  border: 1px solid red;
+  transition: 0.2s;
+  &:hover {
+    background: red;
+    color: white;
+  }
+}
+.logout {
+  color: red;
+  border: 1px solid red;
+  &:hover {
+    background: red;
+    color: white;
+  }
+}
+.restart {
+  color: #39445d;
+  border: 1px solid #39445d;
+  transition: 0.2s;
+  &:hover {
+    background:  #39445d;
+    color: white;
+  }
+}
+</style>

@@ -49,7 +49,7 @@ def config_parser(config):
 
         # scraping for location
         elif config_line.find("location") != -1:
-            proxy["location"] = config_line.split(" ")[1].replace("{", "")
+            proxy["location"] = config_line.split(" ")[1].split("{")[0]
 
         # scraping the address
         elif config_line.find("proxy_pass") != -1:
