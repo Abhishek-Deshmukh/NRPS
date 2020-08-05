@@ -89,6 +89,7 @@
     proxies: {
       id: number;
       nameserver: string;
+      location: string;
       address: string;
       type: string;
     }[] = [];
