@@ -126,23 +126,12 @@ def config_writer(proxies):
         if last_proxy != proxy["nameserver"]:
             config += "\n}\nserver {\n\tlisten 80"
             if proxy["id"] == 1:
-                config += " default_server;"
-            else:
-                config += ";"
+                config += " default_server"
+            config += ";\n\tserver_name " + proxy["nameserver"] + ";"
         if proxy["type"] == "proxy":
-            config += (
-                "\n\tserver_name "
-                + proxy["nameserver"]
-                + ";"
-                + get_proxy(proxy["location"], proxy["address"])
-            )
+            config += get_proxy(proxy["location"], proxy["address"])
         elif proxy["type"] == "static":
-            config += (
-                ";\n\tserver_name "
-                + proxy["nameserver"]
-                + ";"
-                + get_static(proxy["location"], proxy["address"])
-            )
+            config += get_static(proxy["location"], proxy["address"])
         last_proxy = proxy["nameserver"]
     config += "\n}"
     return config
