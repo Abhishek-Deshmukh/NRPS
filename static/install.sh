@@ -60,7 +60,7 @@ supervisorctl restart nginx:nrps
 
 # certbot certificates
 echo "😎 Getting certificates so you can have https"
-certbot --nginx -n -d $1
+certbot --nginx -n -d $1 --redirect
 
 # Complete message
 echo "😁 Installation is complete!!! you can visit $1 and login"

@@ -173,7 +173,7 @@ def restart_nginx():
     return jsonify(False)
 
 
-@APP.route("/api/renew_certificate", method=["POST"])
+@APP.route("/api/renew_certificate", methods=["POST"])
 def renew_certificates():
     """Renewing certificates
     """
