@@ -51,7 +51,7 @@ server {
   }
   location /api/{
     proxy_set_header X-Real-IP \$remote_addr;
-    proxy_pass $2:8081;
+    proxy_pass http://$2:8081;
   }
 }
 " > /etc/nginx/sites-enabled/main.conf
