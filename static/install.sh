@@ -58,5 +58,9 @@ server {
 systemctl restart nginx
 supervisorctl restart nginx:nrps
 
+# certbot certificates
+echo "😎 Getting certificates so you can have https"
+certbot --nginx -n -d $1
+
 # Complete message
-echo "Installation is complete!!! you can visit $1 and login"
+echo "😁 Installation is complete!!! you can visit $1 and login"

@@ -29,11 +29,12 @@ def config_parser(config):
         "id": 0,
         "nameserver": "",
         "address": "",
+        "location": "/",
     }
     count = 1
 
     # removing uncecessary seperators
-    config = config.replace("\n", "").replace("\t", "")
+    config = config.replace("\n", "").replace("\t", "").replace("  ", "")
 
     # separating using `;`
     config_lines = config.split(";")
@@ -44,10 +45,14 @@ def config_parser(config):
 
         # scraping for nameserver
         if config_line.find("server_name") != -1:
-            proxy["nameserver"] = config_line.split(" ", 1)[1]
+            proxy["nameserver"] = config_line.split("server_name ", 1)[1]
+
+        # scraping for location
+        elif config_line.find("location") != -1:
+            proxy["location"] = config_line.split(" ")[1].replace("{", "")
 
         # scraping the address
-        if config_line.find("proxy_pass") != -1:
+        elif config_line.find("proxy_pass") != -1:
             proxy["type"] = "proxy"
             proxy["address"] = config_line.split()[-1]
             # putting in the address and appending to proxies
@@ -55,7 +60,7 @@ def config_parser(config):
             count += 1
             proxies.append(proxy.copy())
 
-        if config_line.find("root") != -1:
+        elif config_line.find("root") != -1:
             proxy["type"] = "static"
             proxy["address"] = config_line.split()[-1]
             # putting in the address and appending to proxies
@@ -65,7 +70,7 @@ def config_parser(config):
     return proxies
 
 
-@APP.route("/", methods=["GET"])
+@APP.route("/api/get_proxies", methods=["GET"])
 def current_proxies():
     """Route for understanding the current config
     """
@@ -84,7 +89,7 @@ def save(secret_key):
         secrets_file.write(inside + "\n" + secret_key)
 
 
-@APP.route("/login", methods=["POST"])
+@APP.route("/api/login", methods=["POST"])
 def login():
     """For logging in
     """
@@ -109,7 +114,9 @@ def config_writer(proxies):
             config += (
                 ";\n\tserver_name "
                 + proxy["nameserver"]
-                + ";\n\tlocation / {\n\t\tproxy_set_header X-Real-IP $remote_addr;\n\t\tproxy_pass "
+                + ";\n\tlocation "
+                + proxy["location"]
+                + "{\n\t\tproxy_set_header X-Real-IP $remote_addr;\n\t\tproxy_pass "
                 + proxy["address"]
                 + ";\n\t}\n}\n"
             )
@@ -117,7 +124,9 @@ def config_writer(proxies):
             config += (
                 ";\n\tserver_name "
                 + proxy["nameserver"]
-                + ";\n\tlocation / {\n\t\troot "
+                + ";\n\tlocation"
+                + proxy["location"]
+                + "{\n\t\troot "
                 + proxy["address"]
                 + ";\n\t}\n}\n"
             )
@@ -135,7 +144,7 @@ def check_key(secret_key):
     return False
 
 
-@APP.route("/set_proxies", methods=["POST"])
+@APP.route("/api/set_proxies", methods=["POST"])
 def set_proxies():
     """Route for setting up configs
     """
@@ -146,11 +155,12 @@ def set_proxies():
         with open(PATH_TO_CONF, "w") as config_file:
             config_file.write(config)
         restart_nginx()
+        renew_certificates()
         return jsonify(True)
     return jsonify(False)
 
 
-@APP.route("/restart_server", methods=["POST"])
+@APP.route("/api/restart_server", methods=["POST"])
 def restart_nginx():
     """Route for restarting nginx
     """
@@ -158,12 +168,25 @@ def restart_nginx():
         try:
             system("systemctl restart nginx")
             return jsonify(True)
-        except:
+        except Exception:
             pass
     return jsonify(False)
 
 
-@APP.route("/clean_secrets", methods=["POST"])
+@APP.route("/api/renew_certificate", method=["POST"])
+def renew_certificates():
+    """Renewing certificates
+    """
+    if check_key(request.json["securityKey"]):
+        try:
+            system("certbot --nginx -n -d ")
+            return jsonify(True)
+        except Exception:
+            pass
+    return jsonify(False)
+
+
+@APP.route("/api/clean_secrets", methods=["POST"])
 def clean_secrets():
     """cleaning all the secrets, i.e. deleting the SECRETS_FILE
     """
@@ -171,7 +194,7 @@ def clean_secrets():
         try:
             system("rm -rf " + SECRET_FILE)
             return jsonify(True)
-        except:
+        except Exception:
             pass
     return jsonify(False)
 

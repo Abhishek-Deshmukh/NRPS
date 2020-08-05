@@ -96,7 +96,7 @@
     }
     async fetchProxies() {
       const response = await axios.get(
-        'https://' + this.$store.state.rootURL + '/api',
+        'https://' + this.$store.state.rootURL + '/api/get_proxies',
       );
       this.proxies = response.data;
       console.log(response.data);
