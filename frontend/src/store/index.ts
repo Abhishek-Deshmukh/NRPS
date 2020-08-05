@@ -7,12 +7,17 @@ export default new Vuex.Store({
   state: {
 
     // enter here
-    rootIP: "",
+
+    rootURL: "",
+    // rootURL: "nrps.dunce.ml"
+
     serverName: "",
+    // serverName: "dunce"
+
     // enter here
 
     securityKey: "",
-    loggedIn: false,
+    loggedIn: true,
   },
   mutations: {},
   actions: {},

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container-fluid">
       <div class="row heading">
         <div class="col-1">#</div>
         <div class="col-2">
@@ -96,14 +96,14 @@
     }
     async fetchProxies() {
       const response = await axios.get(
-        'http://' + this.$store.state.rootIP + ':8081/',
+        'https://' + this.$store.state.rootURL + '/api',
       );
       this.proxies = response.data;
       console.log(response.data);
     }
     async applyProxies() {
       const response = await axios.post(
-        'http://' + this.$store.state.rootIP + ':8081/set_proxies',
+        'https://' + this.$store.state.rootURL + '/api/set_proxies',
         {proxies: this.proxies, securityKey: this.$store.state.securityKey},
       );
       console.log(response.data);
@@ -113,7 +113,7 @@
     }
     async restartServer() {
       const response = await axios.post(
-        'http://' + this.$store.state.rootIP + ':8081/restart_server',
+        'https://' + this.$store.state.rootURL + '/api/restart_server',
         {securityKey: this.$store.state.securityKey},
       );
       console.log(response.data);
@@ -121,7 +121,7 @@
     async clearSecrets() {
       this.$store.state.loggedIn = false;
       const response = await axios.post(
-        'http://' + this.$store.state.rootIP + ':8081/clean_secrets',
+        'https://' + this.$store.state.rootURL + '/api/clean_secrets',
         {securityKey: this.$store.state.securityKey},
       );
       console.log(response.data);

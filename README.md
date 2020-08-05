@@ -30,11 +30,13 @@ Usually your laptop or desktop but can be the remote server itself
 
 The remote server
 
-- python3
-- python3-pip
-- virtualenv
-- nginx
-- supervisor
+- python3 (For reading and righting the nginx config)
+- python3-pip (installing things for python)
+- virtualenv (so that nrps does not mess up other things)
+- nginx (duh …)
+- supervisor (to keep python running and restarting when it stops)
+- certbot (for https)
+- certbot-nginx (for https)
 
 ## How to Install and run
 

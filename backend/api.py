@@ -65,7 +65,7 @@ def config_parser(config):
     return proxies
 
 
-@APP.route("/", methods=["GET"])
+@APP.route("/api", methods=["GET"])
 def current_proxies():
     """Route for understanding the current config
     """
@@ -84,7 +84,7 @@ def save(secret_key):
         secrets_file.write(inside + "\n" + secret_key)
 
 
-@APP.route("/login", methods=["POST"])
+@APP.route("/api/login", methods=["POST"])
 def login():
     """For logging in
     """
@@ -135,7 +135,7 @@ def check_key(secret_key):
     return False
 
 
-@APP.route("/set_proxies", methods=["POST"])
+@APP.route("/api/set_proxies", methods=["POST"])
 def set_proxies():
     """Route for setting up configs
     """
@@ -150,7 +150,7 @@ def set_proxies():
     return jsonify(False)
 
 
-@APP.route("/restart_server", methods=["POST"])
+@APP.route("/api/restart_server", methods=["POST"])
 def restart_nginx():
     """Route for restarting nginx
     """
@@ -163,7 +163,7 @@ def restart_nginx():
     return jsonify(False)
 
 
-@APP.route("/clean_secrets", methods=["POST"])
+@APP.route("/api/clean_secrets", methods=["POST"])
 def clean_secrets():
     """cleaning all the secrets, i.e. deleting the SECRETS_FILE
     """

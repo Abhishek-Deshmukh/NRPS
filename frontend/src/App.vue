@@ -6,24 +6,16 @@
 
 <style lang="scss">
 @import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css);
+@import './assets/bootstrap-grid.min.css';
 body {
   padding-top: 40px;
   font-family: 'Fira Code';
-}
-div {
-  display: inline-block;
-  margin: auto;
 }
 .heading {
   font-size: 19px;
   line-height: 30px;
   letter-spacing: 0.064em;
   font-weight: 800;
-}
-.container {
-  display: grid !important;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 input {
   font-family: "Fira Code";
@@ -35,15 +27,6 @@ input {
 }
 .row {
   margin-bottom: 10px;
-}
-.col-1 {
-  width: 8vw;
-}
-.col-2 {
-  width: 16vw;
-}
-.col-4 {
-  width: 30vw;
 }
 .dropdown {
   position: relative;
