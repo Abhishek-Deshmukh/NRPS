@@ -1,13 +1,16 @@
 <template>
   <div>
-    <div class="container-fluid">
+    <div class="container">
       <div class="row heading">
         <div class="col-1">#</div>
         <div class="col-2">
           Type
         </div>
-        <div class="col-4">
+        <div class="col-3">
           Nameserver
+        </div>
+        <div class="col-1">
+          path
         </div>
         <div class="col-4">
           Address
@@ -27,11 +30,18 @@
             </select>
           </span>
         </div>
-        <div class="col-4">
+        <div class="col-3">
           <input
             required
             v-model="proxy.nameserver"
             placeholder="example.com www.example.com"
+          />
+        </div>
+        <div class="col-1">
+          <input
+            required
+            v-model="proxy.location"
+            placeholder="/"
           />
         </div>
         <div class="col-4">
@@ -86,6 +96,7 @@
     addProxy() {
       this.proxies = this.proxies.concat({
         id: this.proxies.length + 1,
+        location: '/',
         nameserver: '',
         address: '',
         type: '',
