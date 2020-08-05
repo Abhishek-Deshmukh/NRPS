@@ -106,30 +106,45 @@ def config_writer(proxies):
     """Converting proxies into a config string
     """
     config = ""
+
+    def get_proxy(location, address):
+        config = (
+            "\n\tlocation "
+            + location
+            + "{\n\t\tproxy_set_header X-Real-IP $remote_addr;\n\t\tproxy_pass "
+            + address
+            + ";\n\t}"
+        )
+        return config
+
+    def get_static(location, address):
+        config = "\n\tlocation " + location + "{\n\t\troot " + address + ";\n\t}"
+        return config
+
+    last_proxy = ""
     for proxy in proxies:
-        config += "server {\n\tlisten 80"
-        if proxy["id"] == 1:
-            config += " default_server"
+        if last_proxy != proxy["nameserver"]:
+            config += "\n}\nserver {\n\tlisten 80"
+            if proxy["id"] == 1:
+                config += " default_server;"
+            else:
+                config += ";"
         if proxy["type"] == "proxy":
             config += (
-                ";\n\tserver_name "
+                "\n\tserver_name "
                 + proxy["nameserver"]
-                + ";\n\tlocation "
-                + proxy["location"]
-                + "{\n\t\tproxy_set_header X-Real-IP $remote_addr;\n\t\tproxy_pass "
-                + proxy["address"]
-                + ";\n\t}\n}\n"
+                + ";"
+                + get_proxy(proxy["location"], proxy["address"])
             )
         elif proxy["type"] == "static":
             config += (
                 ";\n\tserver_name "
                 + proxy["nameserver"]
-                + ";\n\tlocation"
-                + proxy["location"]
-                + "{\n\t\troot "
-                + proxy["address"]
-                + ";\n\t}\n}\n"
+                + ";"
+                + get_static(proxy["location"], proxy["address"])
             )
+        last_proxy = proxy["nameserver"]
+    config += "\n}"
     return config
 
 

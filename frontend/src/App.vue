@@ -34,7 +34,7 @@ input {
   transition: 0.2s;
   &:focus {
     transform: scale(1.05);
-    border: none;
+    border: 0.3px solid #8a4f3e;
   }
 }
 .row {
