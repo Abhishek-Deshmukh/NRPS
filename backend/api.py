@@ -184,7 +184,7 @@ def renew_certificates(proxies):
     command = "certbot --nginx -n"
     for proxy in proxies:
         if proxy["nameserver"] != "_":
-            command += " -d " + proxy["namespace"]
+            command += " -d " + proxy["nameserver"]
     command += " --expand --redirect "
     try:
         system(command)
