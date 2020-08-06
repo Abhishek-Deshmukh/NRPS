@@ -181,17 +181,16 @@ def restart_nginx():
 def renew_certificates(proxies):
     """Renewing certificates
     """
-    if check_key(request.json["securityKey"]):
-        command = "certbot --nginx -n"
-        for proxy in proxies:
-            if proxy["namespace"] != "_":
-                command += " -d " + proxy["namespace"]
-        command += " --expand --redirect "
-        try:
-            system(command)
-            return jsonify(True)
-        except Exception:
-            pass
+    command = "certbot --nginx -n"
+    for proxy in proxies:
+        if proxy["namespace"] != "_":
+            command += " -d " + proxy["namespace"]
+    command += " --expand --redirect "
+    try:
+        system(command)
+        return jsonify(True)
+    except Exception:
+        pass
     return jsonify(False)
 
 
