@@ -13,7 +13,7 @@ export default new Vuex.Store({
     // serverName: "dunce"
 
     securityKey: "",
-    loggedIn: true,
+    loggedIn: false,
   },
   mutations: {},
   actions: {},
