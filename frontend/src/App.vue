@@ -6,13 +6,16 @@
 
 <style lang="scss">
 @import url(https://cdn.jsdelivr.net/gh/tonsky/FiraCode@4/distr/fira_code.css);
+@import './assets/bootstrap-grid.min.css';
+  * {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  }
 body {
   padding-top: 40px;
   font-family: 'Fira Code';
-}
-div {
-  display: inline-block;
-  margin: auto;
+  overflow-x: hidden;
+  overflor-y: auto;
 }
 .heading {
   font-size: 19px;
@@ -20,30 +23,22 @@ div {
   letter-spacing: 0.064em;
   font-weight: 800;
 }
-.container {
-  display: grid !important;
-  margin-left: 20px;
-  margin-right: 20px;
-}
 input {
   font-family: "Fira Code";
-  width: 300px;
+  width: 100%;
+  max-width: 300px;
   border-radius: 5px;
   box-shadow: none;
   padding: 8px;
   border: 1px solid #8a4f3e;
+  transition: 0.2s;
+  &:focus {
+    transform: scale(1.05);
+    border: 0.3px solid #8a4f3e;
+  }
 }
 .row {
   margin-bottom: 10px;
-}
-.col-1 {
-  width: 8vw;
-}
-.col-2 {
-  width: 16vw;
-}
-.col-4 {
-  width: 30vw;
 }
 .dropdown {
   position: relative;
@@ -94,29 +89,20 @@ button {
   border-radius: 5px;
   margin: 3px;
 }
-.remove {
-  color: #8a4f3e;
-  border: 1px solid #8a4f3e;
+.hover-red {
+  transition: 0.2s;
+  &:hover {
+    background: red;
+    border: 1px solid red;
+    color: white;
+  }
 }
-.add {
-  color: #e98215;
-  border: 1px solid #e98215;
-  margin-bottom: 5px;
-}
-.apply {
-  color: green;
-  border: 1px solid green;
-}
-.reset {
-  color: red;
-  border: 1px solid red;
-}
-.logout {
-  color: red;
-  border: 1px solid red;
-}
-.restart {
-  color: #39445d;
-  border: 1px solid #39445d;
+.hover-green {
+  transition: 0.15s;
+  &:hover {
+    background: green;
+    border: 1px solid green;
+    color: white;
+  }
 }
 </style>

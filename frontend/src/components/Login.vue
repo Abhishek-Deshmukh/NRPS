@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <p v-if="error" class="error">Authentication Error</p>
     <form>
       <span label="Your Username:" for="input-1">Your Username:</span>
@@ -15,8 +15,8 @@
         placeholder="Enter password"
       />
       <br />
-      <button type="submit" @click="onSubmit()">Submit</button>
-      <button type="reset" @click="onReset()">Reset</button>
+      <button type="submit" @click="onSubmit()" class="hover-green">Submit</button>
+      <button type="reset" @click="onReset()" class="hover-red">Reset</button>
     </form>
   </div>
 </template>
@@ -34,7 +34,7 @@ export default class Login extends Vue {
   };
   async onSubmit(event: any) {
     const response = await axios.post(
-      "http://" + this.$store.state.rootIP + ":8081/login",
+      "https://" + this.$store.state.rootURL + "/api/login",
       this.form
     );
     console.log(response);
@@ -66,6 +66,7 @@ export default class Login extends Vue {
 input {
   margin-bottom: 30px;
   margin-top: 5px;
+  transition: 0.2s;
 }
 button {
   margin: 10px;

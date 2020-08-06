@@ -49,9 +49,18 @@ server {
   location /{
     root /var/www/nrps;
   }
-}" > /etc/nginx/sites-enabled/main.conf
+  location /api/{
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_pass http://$2:8081;
+  }
+}
+" > /etc/nginx/sites-enabled/main.conf
 systemctl restart nginx
 supervisorctl restart nginx:nrps
 
+# certbot certificates
+echo "😎 Getting certificates so you can have https"
+certbot --nginx -n -d $1 --redirect
+
 # Complete message
-echo "Installation is complete!!! you can visit $1 and login"
+echo "😁 Installation is complete!!! you can visit $1 and login"

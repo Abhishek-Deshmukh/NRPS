@@ -6,10 +6,11 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
 
-    // enter here
-    rootIP: "",
+    rootURL: "",
+    // rootURL: "nrps.dunce.ml"
+
     serverName: "",
-    // enter here
+    // serverName: "dunce"
 
     securityKey: "",
     loggedIn: false,
