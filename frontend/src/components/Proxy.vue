@@ -19,7 +19,6 @@
       <div class="col-2">
         <span class="dropdown">
           <select required v-model="proxy.type">
-            <option value="">--select--</option>
             <option value="static">Static</option>
             <option value="proxy">Proxy</option>
           </select>
@@ -95,7 +94,7 @@
         location: '/',
         nameserver: '',
         address: '',
-        type: '',
+        type: 'static',
       });
     }
     removeProxy(proxy: {id: number; nameserver: string; address: string}) {

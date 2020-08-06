@@ -160,7 +160,6 @@ def set_proxies():
             config = config_file.readline() + "\n" + config
         with open(PATH_TO_CONF, "w") as config_file:
             config_file.write(config)
-        restart_nginx()
         renew_certificates(request.json["proxies"])
         return jsonify(True)
     return jsonify(False)
